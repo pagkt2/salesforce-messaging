@@ -12,19 +12,6 @@ public class SalesforceMessagingModule: Module {
 
     // Enables the module to be used as a native view. Definition components that are accepted as part of the
     // view definition: Prop, Events.
-    View(SalesforceMessagingView.self) {
-      // Defines a setter for the `url` prop.
-//      Prop("url") { (view: SalesforceMessagingView, url: URL) in
-//        if view.webView.url != url {
-//          view.webView.load(URLRequest(url: url))
-//        }
-//      }
-    
-        Prop("color") { (view: SalesforceMessagingView, color: UIColor) in
-                        view.backgroundColor = color
-                    }
-
-       Events("onLoad")
-    }
+    View(SalesforceMessagingView.self) {}
   }
 }
