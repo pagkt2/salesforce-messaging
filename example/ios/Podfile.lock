@@ -42,6 +42,9 @@ PODS:
   - hermes-engine (0.76.7):
     - hermes-engine/Pre-built (= 0.76.7)
   - hermes-engine/Pre-built (0.76.7)
+  - Messaging-InApp-Core (1.6.3)
+  - Messaging-InApp-UI (1.6.3):
+    - Messaging-InApp-Core (= 1.6.3)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1546,6 +1549,7 @@ PODS:
     - React-utils (= 0.76.7)
   - SalesforceMessaging (0.1.0):
     - ExpoModulesCore
+    - Messaging-InApp-UI (~> 1.6.3)
   - SocketRocket (0.7.1)
   - Yoga (0.0.0)
 
@@ -1626,6 +1630,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Messaging-InApp-Core
+    - Messaging-InApp-UI
     - SocketRocket
 
 EXTERNAL SOURCES:
@@ -1787,6 +1793,8 @@ SPEC CHECKSUMS:
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: eb4a80f6bf578536c58a44198ec93a30f6e69218
+  Messaging-InApp-Core: 9941994bcb740e0e9bda9425ae2a32d13fa95890
+  Messaging-InApp-UI: 684492ed474ff39b9c31e060796daafb0683051d
   RCT-Folly: bf5c0376ffe4dd2cf438dcf86db385df9fdce648
   RCTDeprecation: 7691283dd69fed46f6653d376de6fa83aaad774c
   RCTRequired: eac044a04629288f272ee6706e31f81f3a2b4bfe
@@ -1843,7 +1851,7 @@ SPEC CHECKSUMS:
   React-utils: 9f9a6a31d703b136eb1614d914c10a3c96b1e6dd
   ReactCodegen: 9a99ced51aab02909c7ab5056f33dff7054305bb
   ReactCommon: 04292c6f596181ebf755e7929d96d2148542b0e8
-  SalesforceMessaging: e0bcedf69a71f801147d74188ffe0abced7b808c
+  SalesforceMessaging: 2fe025bfff4621bbc585ae3d53002c312c8274b7
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 88e46d0f2096eb9762a82c2c45ab23b0880de97d
 
