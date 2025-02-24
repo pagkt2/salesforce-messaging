@@ -16,13 +16,14 @@ function HomeScreen() {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       
-      <Button onPress={() => navigation.navigate('Details')}>
+      <Button onPress={() => navigation.navigate('Messager')}>
         Go to Details
       </Button>
     </View>
   );
 }
 function DetailsScreen() {
+  
   const navigation = useNavigation()
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -42,6 +43,17 @@ function DetailsScreen() {
   );
 }
 
+function Messager() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+  <SalesforceMessagingView
+            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
+            style={styles.view}
+          />
+          </View>
+        )
+}
+
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Home',
   screenOptions: {
@@ -54,7 +66,19 @@ const RootStack = createNativeStackNavigator({
         title: 'Overview',
       },
     },
-    Details: DetailsScreen,
+    Details: {
+      screen: DetailsScreen,
+      options: {
+        title: 'Details',
+        headerShown: true
+      },
+    },
+    Messager: {
+      screen: Messager,
+      options: {
+        title: 'Messager',
+      },
+    },
   },
 });
 
