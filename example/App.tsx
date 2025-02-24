@@ -1,6 +1,6 @@
 
 import SalesforceMessaging, { SalesforceMessagingView } from 'salesforce-messaging';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, StyleSheet } from 'react-native';
 import { createStaticNavigation, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from '@react-navigation/elements'
@@ -23,6 +23,7 @@ function HomeScreen() {
   );
 }
 function DetailsScreen() {
+  const navigation = useNavigation()
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Details Screen</Text>
@@ -68,7 +69,7 @@ function Group(props: { name: string; children: React.ReactNode }) {
   );
 }
 
-const styles = {
+const styles = StyleSheet.create({
   header: {
     fontSize: 30,
     margin: 20,
@@ -89,7 +90,7 @@ const styles = {
   },
   view: {
     flex: 1,
-    height: 200,
+    height: 50,
     color: 'red',
-  },
-};
+  }
+});
