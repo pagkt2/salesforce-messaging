@@ -31,12 +31,12 @@ function DetailsScreen() {
       <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container}>
         <Text style={styles.header}>Module API Example</Text>
-        <Group name="Views">
+        {/* <Group name="Views">
           <SalesforceMessagingView
             onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
             style={styles.view}
           />
-        </Group>
+        </Group> */}
       </ScrollView>
     </SafeAreaView>
     </View>
@@ -77,6 +77,7 @@ const RootStack = createNativeStackNavigator({
       screen: Messager,
       options: {
         title: 'Messager',
+        headerShown: true
       },
     },
   },
