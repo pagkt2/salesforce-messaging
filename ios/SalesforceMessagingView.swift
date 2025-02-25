@@ -42,25 +42,9 @@ class SalesforceMessagingView: ExpoView {
 class SalesforceController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        guard let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com") else {
-            return
-        }
-    
-        // Generate a random conversation ID
-        // (But be sure to use the SAME conversation ID if you want
-        // to continue this conversation across app restarts or
-        // across devices!)
-        let conversationID = UUID()
-        
-        // Create a configuration object
-        let config = UIConfiguration(serviceAPI: serviceAPIURL,
-                                               organizationId: "00DHs00000CnigT",
-                                               developerName: "Messaging_for_Mobile",
-                                               conversationId: conversationID)
             
             // Create the SwiftUI view
-        let swiftUIView = SalesforceSwiftUIView(config: config)
+        let swiftUIView = SalesforceSwiftUIView()
         
         // Create a UIHostingController with the SwiftUI view
         let hostingController = UIHostingController(rootView: swiftUIView)
@@ -81,14 +65,22 @@ class SalesforceController: UIViewController {
 }
 
 struct SalesforceSwiftUIView: View {
-    @State var config: UIConfiguration
 
     var body: some View {
+        let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com")!
+
+        // Generate a random conversation ID
+        // (But be sure to use the SAME conversation ID if you want
+        // to continue this conversation across app restarts or
+        // across devices!)
+        let conversationID = UUID()
+        
+        // Create a configuration object
+        let config = UIConfiguration(serviceAPI: serviceAPIURL,
+                                               organizationId: "00DHs00000CnigT",
+                                               developerName: "Messaging_for_Mobile",
+                                               conversationId: conversationID)
 //        Text("Hello, World!")
         return Interface(config)
     }
 }
-
-//#Preview {
-//    SalesforceSwiftUIView
-//}
