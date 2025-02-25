@@ -45,12 +45,12 @@ function DetailsScreen() {
 
 function Messager() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-  <SalesforceMessagingView
+    <SafeAreaView style={styles.container}>
+       <SalesforceMessagingView
             onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
             style={styles.view}
           />
-          </View>
+    </SafeAreaView>
         )
 }
 

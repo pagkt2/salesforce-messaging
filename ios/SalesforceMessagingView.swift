@@ -8,17 +8,21 @@ import UIKit
 // This view will be used as a native component. Make sure to inherit from `ExpoView`
 // to apply the proper styling (e.g. border radius and shadows).
 class SalesforceMessagingView: ExpoView {
+    let chatVC = SalesforceController()
+    
     required init(appContext: AppContext? = nil) {
         super.init(appContext: appContext)
         clipsToBounds = true
         
         guard let parentVC = findViewController() else { return }
         
-        let chatVC = SalesforceController()
-//        chatVC.modalPresentationStyle = .automatic
-        
-        parentVC.show(chatVC, sender: nil)
+//        chatVC.modalPresentationStyle = .currentContext
+        parentVC.present(chatVC, animated: true)
     }
+    
+//    override func layoutSubviews() {
+//        chatVC.view.frame = bounds
+//      }
 
     
     private func findViewController() -> UIViewController? {
@@ -53,7 +57,6 @@ class SalesforceController: UIViewController {
         addChild(hostingController)
 //        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         
-        
         // Add the hosting controller's view to your view hierarchy
         hostingController.view.frame = view.bounds // set the frame
         hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -65,7 +68,6 @@ class SalesforceController: UIViewController {
 }
 
 struct SalesforceSwiftUIView: View {
-
     var body: some View {
         let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com")!
 
@@ -80,7 +82,6 @@ struct SalesforceSwiftUIView: View {
                                                organizationId: "00DHs00000CnigT",
                                                developerName: "Messaging_for_Mobile",
                                                conversationId: conversationID)
-//        Text("Hello, World!")
         return Interface(config)
     }
 }
