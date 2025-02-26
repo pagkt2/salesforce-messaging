@@ -40,4 +40,18 @@ android {
   lintOptions {
     abortOnError false
   }
+  buildFeatures {
+    dataBinding true
+  }
 }
+
+dependencies {
+  implementation "com.salesforce.service:messaging-inapp-ui:1.8.0"
+}
+
+repositories {
+  maven {
+    url "https://s3.amazonaws.com/inapp.salesforce.com/public/android"
+  }
+}
+
