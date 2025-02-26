@@ -16,7 +16,7 @@ function HomeScreen() {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       
-      <Button onPress={() => navigation.navigate('Messager')}>
+      <Button onPress={() => navigation.navigate('Messenger')}>
         Go to Details
       </Button>
     </View>
@@ -43,7 +43,7 @@ function DetailsScreen() {
   );
 }
 
-function Messager() {
+function Messenger() {
   return (
     <SafeAreaView style={styles.container}>
        <SalesforceMessagingView
@@ -73,10 +73,10 @@ const RootStack = createNativeStackNavigator({
         headerShown: true
       },
     },
-    Messager: {
-      screen: Messager,
+    Messenger: {
+      screen: Messenger,
       options: {
-        title: 'Messager',
+        title: 'Messenger',
         headerShown: true
       },
     },
