@@ -8,12 +8,13 @@ import UIKit
 // This view will be used as a native component. Make sure to inherit from `ExpoView`
 // to apply the proper styling (e.g. border radius and shadows).
 class SalesforceMessagingView: ExpoView {
-    let chatVC = SalesforceController()
+    let chatVC: UIViewController
     
     required init(appContext: AppContext? = nil) {
+        chatVC = SalesforceHostingController()
         super.init(appContext: appContext)
+        
         clipsToBounds = true
-
         addSubview(chatVC.view)
     }
     
@@ -22,44 +23,27 @@ class SalesforceMessagingView: ExpoView {
     }
 }
 
-class SalesforceController: UIViewController {
-    let chatVC: UIViewController
+class SalesforceHostingController: UIViewController {
+    let hostingController: UIHostingController<SalesforceSwiftUIView>
     
     required init() {
-        chatVC = SalesforceHostingController()
+        let swiftUIView = SalesforceSwiftUIView()
+        hostingController = UIHostingController(rootView: swiftUIView)
         super.init(nibName: nil, bundle: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Now the view controller's view is ready, add chatVC's view
-        addChild(chatVC)
-        view.addSubview(chatVC.view)
-        chatVC.view.frame = view.bounds
-        chatVC.didMove(toParent: self)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-}
-
-class SalesforceHostingController: UIViewController {
-    let swiftUIView = SalesforceSwiftUIView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-            // Create the SwiftUI view
-        
-        
-        // Create a UIHostingController with the SwiftUI view
-        let hostingController = UIHostingController(rootView: swiftUIView)
         
         // Add the hosting controller as a child view controller
         addChild(hostingController)
-//        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
         
         // Add the hosting controller's view to your view hierarchy
+        hostingController.modalPresentationStyle = .currentContext
         hostingController.view.frame = view.bounds // set the frame
         hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(hostingController.view)
