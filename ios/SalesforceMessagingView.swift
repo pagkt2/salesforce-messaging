@@ -23,26 +23,50 @@ class SalesforceMessagingView: ExpoView {
 }
 
 class SalesforceController: UIViewController {
-    let swiftUIView = SalesforceSwiftUIView()
-    let hostingController: UIHostingController<SalesforceSwiftUIView>
+    let chatVC: UIViewController
     
     required init() {
-        hostingController = UIHostingController(rootView: swiftUIView)
+        chatVC = SalesforceHostingController()
         super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Now the view controller's view is ready, add chatVC's view
-        addChild(hostingController)
-        view.addSubview(hostingController.view)
-        hostingController.view.frame = view.bounds
-        hostingController.didMove(toParent: self)
+        addChild(chatVC)
+        view.addSubview(chatVC.view)
+        chatVC.view.frame = view.bounds
+        chatVC.didMove(toParent: self)
     }
     
     required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+}
+
+class SalesforceHostingController: UIViewController {
+    let swiftUIView = SalesforceSwiftUIView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+            // Create the SwiftUI view
+        
+        
+        // Create a UIHostingController with the SwiftUI view
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        
+        // Add the hosting controller as a child view controller
+        addChild(hostingController)
+//        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add the hosting controller's view to your view hierarchy
+        hostingController.view.frame = view.bounds // set the frame
+        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(hostingController.view)
+        
+        // Notify the hosting controller that it's been added
+        hostingController.didMove(toParent: self)
+    }
 }
 
 struct SalesforceSwiftUIView: View {
