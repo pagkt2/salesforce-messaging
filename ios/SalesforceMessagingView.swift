@@ -26,8 +26,53 @@ class SalesforceController: UIViewController {
     let chatVC: UIViewController
     
     required init() {
-        let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com")!
+        chatVC = SalesforceHostingController()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Now the view controller's view is ready, add chatVC's view
+        addChild(chatVC)
+        view.addSubview(chatVC.view)
+        chatVC.view.frame = view.bounds
+        chatVC.didMove(toParent: self)
+    }
+    
+    required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+}
 
+class SalesforceHostingController: UIViewController {
+    let swiftUIView = SalesforceSwiftUIView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+            // Create the SwiftUI view
+        
+        
+        // Create a UIHostingController with the SwiftUI view
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        
+        // Add the hosting controller as a child view controller
+        addChild(hostingController)
+//        hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add the hosting controller's view to your view hierarchy
+        hostingController.view.frame = view.bounds // set the frame
+        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view.addSubview(hostingController.view)
+        
+        // Notify the hosting controller that it's been added
+        hostingController.didMove(toParent: self)
+    }
+}
+
+struct SalesforceSwiftUIView: View {
+    var body: some View {
+        let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com")!
+        
         // Generate a random conversation ID
         // (But be sure to use the SAME conversation ID if you want
         // to continue this conversation across app restarts or
@@ -36,24 +81,9 @@ class SalesforceController: UIViewController {
         
         // Create a configuration object
         let config = UIConfiguration(serviceAPI: serviceAPIURL,
-                                               organizationId: "00DHs00000CnigT",
-                                               developerName: "Messaging_for_Mobile",
-                                               conversationId: conversationID)
-        
-        chatVC = InterfaceViewController(config)
-        super.init(nibName: nil, bundle: nil)
+                                     organizationId: "00DHs00000CnigT",
+                                     developerName: "Messaging_for_Mobile",
+                                     conversationId: conversationID)
+        return Interface(config)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-                // Now the view controller's view is ready, add chatVC's view
-                addChild(chatVC)
-                view.addSubview(chatVC.view)
-                chatVC.view.frame = view.bounds
-                chatVC.didMove(toParent: self)
-    }
-    
-    required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
 }
