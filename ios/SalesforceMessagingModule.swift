@@ -1,4 +1,5 @@
 import ExpoModulesCore
+import SMIClientCore
 
 public class SalesforceMessagingModule: Module {
   // Each module class must implement the definition function. The definition consists of components
@@ -13,6 +14,9 @@ public class SalesforceMessagingModule: Module {
     // Enables the module to be used as a native view. Definition components that are accepted as part of the
     // view definition: Prop, Events.
     View(SalesforceMessagingView.self) {
+        Prop("driverExternalId") { (view, driverExternalId: String?) in
+            view.driverExternalId = driverExternalId
+      }
     }
   }
 }

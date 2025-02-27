@@ -1,5 +1,4 @@
-
-import SalesforceMessaging, { SalesforceMessagingView } from 'salesforce-messaging';
+import SalesforceMessaging, { SalesforceMessagingView, PreChatFieldType } from 'salesforce-messaging';
 import { SafeAreaView, ScrollView, Text, View, StyleSheet } from 'react-native';
 import { createStaticNavigation, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -46,12 +45,13 @@ function DetailsScreen() {
 function Messenger() {
   return (
     <SafeAreaView style={styles.container}>
-       <SalesforceMessagingView
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
-          />
+      <SalesforceMessagingView
+        // driverExternalId={"driver_LPPD93VQJH"}
+        driverExternalId={"user_NTPRG4XA6A"}
+        style={styles.view}
+      />
     </SafeAreaView>
-        )
+  );
 }
 
 const RootStack = createNativeStackNavigator({

@@ -1,4 +1,4 @@
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle, ViewProps } from 'react-native';
 
 export type OnLoadEventPayload = {
   url?: string;
@@ -12,7 +12,11 @@ export type ChangeEventPayload = {
   value: string;
 };
 
+export type PreChatFieldType = {
+  name: string;
+  value: string;
+}
+
 export type SalesforceMessagingViewProps = {
-  onLoad: (event: { nativeEvent: OnLoadEventPayload }) => void;
-  style?: StyleProp<ViewStyle>;
-};
+  driverExternalId?: String
+} & ViewProps;
