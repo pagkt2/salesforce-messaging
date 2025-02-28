@@ -22,15 +22,13 @@ class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
 
     // Use the conversation object to inspect info about the conversation
         print("Running")
-      
-        let preChatData: [String: String?] = [
-          "Driver_External_ID": driverExternalId,
-        ]
 
         // Fill in all the hidden pre-chat fields
-        for preChatField in hiddenPreChatFields {
-            if let fieldValue = preChatData[preChatField.label] {
-              preChatField.value = fieldValue
+        for it in hiddenPreChatFields {
+            switch it.name {
+//                case "Driver_External_ID": it.value = driverExternalId
+            case "Driver_External_ID": it.value = "driver_LPPD93VQJH"
+                default: print("Unknown hidden prechat field: \(it.name)")
             }
           }
 

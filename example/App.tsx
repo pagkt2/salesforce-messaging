@@ -46,8 +46,8 @@ function Messenger() {
   return (
     <SafeAreaView style={styles.container}>
       <SalesforceMessagingView
-        // driverExternalId={"driver_LPPD93VQJH"}
-        driverExternalId={"user_NTPRG4XA6A"}
+        driverExternalId={"driver_LPPD93VQJH"}
+        // driverExternalId={"user_NTPRG4XA6A"}
         style={styles.view}
       />
     </SafeAreaView>

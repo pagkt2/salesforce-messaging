@@ -10,6 +10,9 @@ class SalesforceMessagingView: ExpoView {
     var driverExternalId: String? {
         didSet {
             if let externalId = driverExternalId {
+                chatVC.view.removeFromSuperview()
+                let delegate = SalesforceClientDelegate()
+                delegate.addPrechatVars(externalId: externalId)
                 chatVC = SalesforceHostingController()
                 addSubview(chatVC.view)
             }
@@ -18,6 +21,8 @@ class SalesforceMessagingView: ExpoView {
     
     required init(appContext: AppContext? = nil) {
         super.init(appContext: appContext)
+        chatVC = SalesforceHostingController()
+        addSubview(chatVC.view)
         clipsToBounds = true
     }
     

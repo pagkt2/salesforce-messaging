@@ -34,8 +34,13 @@ class SalesforceClientDelegate {
             client = CoreFactory.create(withConfig: config)
         }
         
+        
+    }
+    
+    func addPrechatVars(externalId: String) {
+        print("driverExternalID \(externalId)")
         if let tempClient = client {
-            let myPreChatDelegate = HiddenPrechatDelegateImplementation(driverExternalId: "driver_LPPD93VQJH")
+            let myPreChatDelegate = HiddenPrechatDelegateImplementation(driverExternalId: externalId)
             tempClient.preChatDelegate = myPreChatDelegate
             if let delegateExists = tempClient.preChatDelegate {
                 print("Prechat delegate added!")
@@ -43,6 +48,8 @@ class SalesforceClientDelegate {
                 print("Unable to add prechat delegate")
             }
             client = tempClient
+            print("client?.state.rawValue \(client?.state.rawValue)")
+            print("client?.realtimeConnectionState.rawValue \(client?.realtimeConnectionState.rawValue)")
         }
     }
 }
