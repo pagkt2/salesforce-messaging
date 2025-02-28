@@ -11,6 +11,8 @@ import java.net.URL
 import java.util.UUID
 
 class SalesforceMessagingView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
+
+  var driverExternalId: String = ""
   init {
     val url = URL("https://curri.my.salesforce-scrt.com")
     val coreConfig = CoreConfiguration(url, "00DHs00000CnigT", "Messaging_for_Mobile")
@@ -31,7 +33,7 @@ class SalesforceMessagingView(context: Context, appContext: AppContext) : ExpoVi
 
             // Specify the value for each field mapping
             if (it.name == "Driver_External_ID") {
-              it.userInput = "driver_LPPD93VQJH"
+              it.userInput = driverExternalId
             }
           }
 
