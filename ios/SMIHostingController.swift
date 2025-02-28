@@ -10,11 +10,17 @@ import SMIClientUI
 import SMIClientCore
 
 class SalesforceHostingController: UIViewController {
-    let hostingController: UIHostingController<SalesforceSwiftUIView>!
+    let hostingController: UIHostingController<SalesforceSwiftUIView>?
     
-    required init(config: UIConfiguration) {
-        let swiftUIView = SalesforceSwiftUIView(config: config)
-        hostingController = UIHostingController(rootView: swiftUIView)
+    required init() {
+        let delegate = SalesforceClientDelegate()
+        if let config = delegate.config {
+            let swiftUIView = SalesforceSwiftUIView(config: config)
+            hostingController = UIHostingController(rootView: swiftUIView)
+            print("SwiftUIView initialized")
+        } else {
+            hostingController = nil
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -24,17 +30,19 @@ class SalesforceHostingController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Add the hosting controller as a child view controller
-        addChild(hostingController)
-        
-        // Add the hosting controller's view to your view hierarchy
-        hostingController.modalPresentationStyle = .currentContext
-        hostingController.view.frame = view.bounds // set the frame
-        hostingController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(hostingController.view)
-        
-        // Notify the hosting controller that it's been added
-        hostingController.didMove(toParent: self)
+        if let controller = hostingController {
+            // Add the hosting controller as a child view controller
+            addChild(controller)
+            
+            // Add the hosting controller's view to your view hierarchy
+            controller.modalPresentationStyle = .currentContext
+            controller.view.frame = view.bounds // set the frame
+            controller.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            view.addSubview(controller.view)
+            
+            // Notify the hosting controller that it's been added
+            controller.didMove(toParent: self)
+            print("SwiftUIView added")
+        }
     }
 }

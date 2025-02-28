@@ -11,6 +11,7 @@ class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
     var driverExternalId: String?
     
     init(driverExternalId: String? = nil) {
+        print("Inside the delegate")
         self.driverExternalId = driverExternalId
     }
 
@@ -20,6 +21,7 @@ class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
             completionHandler: HiddenPreChatValueCompletion) {
 
     // Use the conversation object to inspect info about the conversation
+        print("Running")
       
         let preChatData: [String: String?] = [
           "Driver_External_ID": driverExternalId,
