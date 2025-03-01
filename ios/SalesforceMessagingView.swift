@@ -10,23 +10,28 @@ class SalesforceMessagingView: ExpoView {
     var driverExternalId: String? {
         didSet {
             if let externalId = driverExternalId {
-                chatVC.view.removeFromSuperview()
-                let delegate = SalesforceClientDelegate()
-                delegate.addPrechatVars(externalId: externalId)
+                let prechatDelegate = HiddenPrechatDelegateImplementation.shared
+                prechatDelegate.driverExternalId = externalId
+                if let client = SalesforceClientDelegate.shared.client {
+                    client.setPreChatDelegate(delegate: prechatDelegate, queue: .main)
+                }
                 chatVC = SalesforceHostingController()
                 addSubview(chatVC.view)
+                
             }
         }
     }
     
     required init(appContext: AppContext? = nil) {
         super.init(appContext: appContext)
-        chatVC = SalesforceHostingController()
-        addSubview(chatVC.view)
         clipsToBounds = true
     }
     
     override func layoutSubviews() {
           chatVC.view.frame = bounds
+    }
+    
+    func propsRetrieved() {
+        print("Props retrieved!")
     }
 }

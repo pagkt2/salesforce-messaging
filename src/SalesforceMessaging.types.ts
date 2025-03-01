@@ -18,5 +18,5 @@ export type PreChatFieldType = {
 }
 
 export type SalesforceMessagingViewProps = {
-  driverExternalId?: String
+  driverExternalId: String // This must remain required for the expo module to work properly.  If no id present, use an empty string.
 } & ViewProps;

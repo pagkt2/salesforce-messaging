@@ -16,7 +16,7 @@ public class SalesforceMessagingModule: Module {
     View(SalesforceMessagingView.self) {
         Prop("driverExternalId") { (view, driverExternalId: String?) in
             view.driverExternalId = driverExternalId
-      }
+        }
     }
   }
 }

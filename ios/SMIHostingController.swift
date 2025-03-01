@@ -13,7 +13,7 @@ class SalesforceHostingController: UIViewController {
     let hostingController: UIHostingController<SalesforceSwiftUIView>?
     
     required init() {
-        let delegate = SalesforceClientDelegate()
+        let delegate = SalesforceClientDelegate.shared
         if let config = delegate.config {
             let swiftUIView = SalesforceSwiftUIView(config: config)
             hostingController = UIHostingController(rootView: swiftUIView)

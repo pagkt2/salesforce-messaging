@@ -1,4 +1,4 @@
-//
+    //
 //  SMIClientDelegate.swift
 //  SalesforceMessaging
 //
@@ -9,8 +9,29 @@ import SMIClientCore
 import SMIClientUI
 
 class SalesforceClientDelegate {
-    var client: CoreClient?
+    static let shared = SalesforceClientDelegate()
+    
+    var driverExternalId: String?
     var config: UIConfiguration?
+    var client: CoreClient? {
+        didSet {
+            if let client = client {
+                print("prechatDelegate \(client.preChatDelegate)")
+            }
+        }
+    }
+    var convoClient: ConversationClient?
+    var remoteConfig: RemoteConfiguration? {
+        didSet {
+            if let config = remoteConfig {
+                if let prechatConfig = config.preChatConfiguration {
+                    if let fields = prechatConfig.first?.hiddenPreChatFields {
+                        dump("hiddenPrechatFields \(fields)")
+                    }
+                }
+            }
+        }
+    }
     
     init() {
         guard let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com") else {
@@ -30,26 +51,24 @@ class SalesforceClientDelegate {
                                      developerName: "Messaging_for_Mobile",
                                      conversationId: conversationID)
         
+        
+        
         if let config = config {
             client = CoreFactory.create(withConfig: config)
+        } else {
+            print("Unable to create UIConfiguration")
+            return
         }
         
-        
-    }
-    
-    func addPrechatVars(externalId: String) {
-        print("driverExternalID \(externalId)")
-        if let tempClient = client {
-            let myPreChatDelegate = HiddenPrechatDelegateImplementation(driverExternalId: externalId)
-            tempClient.preChatDelegate = myPreChatDelegate
-            if let delegateExists = tempClient.preChatDelegate {
-                print("Prechat delegate added!")
-            } else {
-                print("Unable to add prechat delegate")
-            }
-            client = tempClient
-            print("client?.state.rawValue \(client?.state.rawValue)")
-            print("client?.realtimeConnectionState.rawValue \(client?.realtimeConnectionState.rawValue)")
+        if let coreClient = client {
+            convoClient = coreClient.conversationClient(with: conversationID)
+            
+            coreClient.retrieveRemoteConfiguration( completion: { (remoteConfig, error) in
+                self.remoteConfig = remoteConfig
+            })
+        } else {
+            print("Unable to create core client")
+            return
         }
     }
 }

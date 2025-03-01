@@ -8,12 +8,13 @@
 import SMIClientCore
 
 class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
+    static let shared = HiddenPrechatDelegateImplementation()
+    
     var driverExternalId: String?
     
-    init(driverExternalId: String? = nil) {
-        print("Inside the delegate")
-        self.driverExternalId = driverExternalId
-    }
+//    init() {
+//        driverExternalId = nil
+//    }
 
   func core(_ core: CoreClient,
             conversation: Conversation,
@@ -27,7 +28,7 @@ class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
         for it in hiddenPreChatFields {
             switch it.name {
 //                case "Driver_External_ID": it.value = driverExternalId
-            case "Driver_External_ID": it.value = "driver_LPPD93VQJH"
+                case "Driver_External_ID": it.value = "driver_LPPD93VQJH"
                 default: print("Unknown hidden prechat field: \(it.name)")
             }
           }
