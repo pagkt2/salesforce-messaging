@@ -1,9 +1,9 @@
 import SalesforceMessaging, { SalesforceMessagingView, PreChatFieldType } from 'salesforce-messaging';
-import { SafeAreaView, ScrollView, Text, View, StyleSheet } from 'react-native';
+import { SafeAreaView, ScrollView, Text, View, StyleSheet, Platform } from 'react-native';
 import { createStaticNavigation, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from '@react-navigation/elements'
-
+import { useEffect } from 'react';
 export default function App() {
   return <Navigation />;
 }
@@ -43,6 +43,20 @@ function DetailsScreen() {
 }
 
 function Messenger() {
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    // On iOS, the conversation is embedded in the window, since it doesn't present its own back button etc.
+    // (This is contrary to its docs, so this is a workaround)
+
+    // But on Android, the conversation is a modal which has its own back button etc.
+    // Thus, we need to navigate back to the home screen when the conversation is opened,
+    // otherwise there will be a blank "messaging" screen it would return to.
+    if (Platform.OS === 'android') {
+      navigation.goBack()
+    }
+  }, [])
+
   return (
     <SafeAreaView style={styles.container}>
       <SalesforceMessagingView
