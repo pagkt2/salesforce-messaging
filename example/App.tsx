@@ -48,6 +48,7 @@ function Messenger() {
       <SalesforceMessagingView
         driverExternalId={"driver_LPPD93VQJH"}
         // driverExternalId={"user_NTPRG4XA6A"}
+        // driverExternalId={""}
         style={styles.view}
       />
     </SafeAreaView>

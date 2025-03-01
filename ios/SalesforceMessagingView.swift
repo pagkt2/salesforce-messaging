@@ -14,6 +14,8 @@ class SalesforceMessagingView: ExpoView {
                 prechatDelegate.driverExternalId = externalId
                 if let client = SalesforceClientDelegate.shared.client {
                     client.setPreChatDelegate(delegate: prechatDelegate, queue: .main)
+                    let coreDelegate = SalesforceCoreDelegate.shared
+                    client.addDelegate(delegate: coreDelegate)
                 }
                 chatVC = SalesforceHostingController()
                 addSubview(chatVC.view)

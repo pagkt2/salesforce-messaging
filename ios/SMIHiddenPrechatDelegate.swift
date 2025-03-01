@@ -11,10 +11,6 @@ class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
     static let shared = HiddenPrechatDelegateImplementation()
     
     var driverExternalId: String?
-    
-//    init() {
-//        driverExternalId = nil
-//    }
 
   func core(_ core: CoreClient,
             conversation: Conversation,
@@ -22,13 +18,12 @@ class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
             completionHandler: HiddenPreChatValueCompletion) {
 
     // Use the conversation object to inspect info about the conversation
-        print("Running")
 
         // Fill in all the hidden pre-chat fields
         for it in hiddenPreChatFields {
             switch it.name {
-//                case "Driver_External_ID": it.value = driverExternalId
-                case "Driver_External_ID": it.value = "driver_LPPD93VQJH"
+                case "Driver_External_ID": it.value = driverExternalId
+//                case "Driver_External_ID": it.value = "driver_LPPD93VQJH"
                 default: print("Unknown hidden prechat field: \(it.name)")
             }
           }

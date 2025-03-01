@@ -13,13 +13,7 @@ class SalesforceClientDelegate {
     
     var driverExternalId: String?
     var config: UIConfiguration?
-    var client: CoreClient? {
-        didSet {
-            if let client = client {
-                print("prechatDelegate \(client.preChatDelegate)")
-            }
-        }
-    }
+    var client: CoreClient?
     var convoClient: ConversationClient?
     var remoteConfig: RemoteConfiguration? {
         didSet {
@@ -51,8 +45,6 @@ class SalesforceClientDelegate {
                                      developerName: "Messaging_for_Mobile",
                                      conversationId: conversationID)
         
-        
-        
         if let config = config {
             client = CoreFactory.create(withConfig: config)
         } else {
@@ -65,7 +57,7 @@ class SalesforceClientDelegate {
             
             coreClient.retrieveRemoteConfiguration( completion: { (remoteConfig, error) in
                 self.remoteConfig = remoteConfig
-            })
+            })            
         } else {
             print("Unable to create core client")
             return
