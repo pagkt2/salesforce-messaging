@@ -17,7 +17,6 @@ class SalesforceHostingController: UIViewController {
         if let config = delegate.config {
             let swiftUIView = SalesforceSwiftUIView(config: config)
             hostingController = UIHostingController(rootView: swiftUIView)
-            print("SwiftUIView initialized")
         } else {
             hostingController = nil
         }
@@ -42,7 +41,6 @@ class SalesforceHostingController: UIViewController {
             
             // Notify the hosting controller that it's been added
             controller.didMove(toParent: self)
-            print("SwiftUIView added")
         }
     }
 }

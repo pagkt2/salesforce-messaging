@@ -15,17 +15,7 @@ class SalesforceClientDelegate {
     var config: UIConfiguration?
     var client: CoreClient?
     var convoClient: ConversationClient?
-    var remoteConfig: RemoteConfiguration? {
-        didSet {
-            if let config = remoteConfig {
-                if let prechatConfig = config.preChatConfiguration {
-                    if let fields = prechatConfig.first?.hiddenPreChatFields {
-                        dump("hiddenPrechatFields \(fields)")
-                    }
-                }
-            }
-        }
-    }
+    var remoteConfig: RemoteConfiguration?
     
     init() {
         guard let serviceAPIURL = URL(string: "https://curri.my.salesforce-scrt.com") else {

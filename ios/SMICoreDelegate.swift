@@ -25,9 +25,6 @@ class SalesforceCoreDelegate : NSObject, CoreDelegate {
   func core(_ core: CoreClient,
             conversation: Conversation,
             didUpdateEntries entries: [ConversationEntry]) {
-      
-      print("Message status has changed")
-      print("conversation.status \(conversation.status)")
       // TO DO: Handle event
       
     }
@@ -35,8 +32,6 @@ class SalesforceCoreDelegate : NSObject, CoreDelegate {
   // Conversation was created
   func core(_ core: CoreClient,
             didCreateConversation conversation: Conversation) {
-      
-      print("Conversation was created")
       // TO DO: Handle event
     }
 
@@ -63,7 +58,11 @@ class SalesforceCoreDelegate : NSObject, CoreDelegate {
   // Received an error message
   func core(_ core: CoreClient, didError error: Error) {
     // TO DO: Handle an error condition!
-      
       print("Error: \(error)")
+  }
+    
+    func core(_ core: CoreClient, didUpdate conversation: Conversation) {
+    // TO DO: Handle an error condition!
+        
   }
 }
