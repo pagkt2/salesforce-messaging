@@ -1660,7 +1660,7 @@ PODS:
     - Yoga
   - SalesforceMessaging (0.1.0):
     - ExpoModulesCore
-    - Messaging-InApp-UI (~> 1.6.3)
+    - Messaging-InApp-UI (= 1.6.3)
   - SocketRocket (0.7.1)
   - Yoga (0.0.0)
 
@@ -1970,7 +1970,7 @@ SPEC CHECKSUMS:
   ReactCodegen: 9a99ced51aab02909c7ab5056f33dff7054305bb
   ReactCommon: 04292c6f596181ebf755e7929d96d2148542b0e8
   RNScreens: d022507f2b6d76c73335e9e35aedcf7bb2f791b0
-  SalesforceMessaging: 2fe025bfff4621bbc585ae3d53002c312c8274b7
+  SalesforceMessaging: 659d9dc675a5136f085063274b531b20763d47c0
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 88e46d0f2096eb9762a82c2c45ab23b0880de97d
 
