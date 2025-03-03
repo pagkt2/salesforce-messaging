@@ -9,7 +9,9 @@ import SMIClientCore
 
 /* Implement this delegate to listen to
    ALL messaging events…
+    https://developer.salesforce.com/docs/service/messaging-in-app/guide/ios-core-sdk.html#listen-for-events
 */
+
 class SalesforceCoreDelegate : NSObject, CoreDelegate {
     static let shared = SalesforceCoreDelegate()
 

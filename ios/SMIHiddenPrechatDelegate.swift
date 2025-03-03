@@ -7,6 +7,7 @@
 
 import SMIClientCore
 
+// https://developer.salesforce.com/docs/service/messaging-in-app/guide/ios-pre-chat.html
 class HiddenPrechatDelegateImplementation: HiddenPreChatDelegate {
     static let shared = HiddenPrechatDelegateImplementation()
     

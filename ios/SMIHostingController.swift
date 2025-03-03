@@ -9,6 +9,8 @@ import SwiftUI
 import SMIClientUI
 import SMIClientCore
 
+// https://developer.apple.com/documentation/swiftui/uihostingcontroller
+
 class SalesforceHostingController: UIViewController {
     let hostingController: UIHostingController<SalesforceSwiftUIView>?
     

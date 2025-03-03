@@ -8,7 +8,8 @@
 
 import SwiftUI
 import SMIClientUI
-import SMIClientCore
+
+// https://developer.salesforce.com/docs/service/messaging-in-app/guide/ios-ui-sdk.html#step-3-add-the-view-to-your-app
 
 struct SalesforceSwiftUIView: View {
     @State var config: UIConfiguration
