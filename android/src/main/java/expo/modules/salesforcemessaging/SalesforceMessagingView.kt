@@ -13,6 +13,8 @@ import java.util.UUID
 class SalesforceMessagingView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
 
   var driverExternalId: String = ""
+  var uiClient: UIClient
+
   init {
     val url = URL("https://curri.my.salesforce-scrt.com")
     val coreConfig = CoreConfiguration(url, "00DHs00000CnigT", "Messaging_for_Mobile")
@@ -42,7 +44,10 @@ class SalesforceMessagingView(context: Context, appContext: AppContext) : ExpoVi
         }
       })
 
-    val uiClient = UIClient.Factory.create(config)
+    uiClient = UIClient.Factory.create(config)
+  }
+
+  fun openChat() {
     uiClient.openConversationActivity(context)
   }
 }
