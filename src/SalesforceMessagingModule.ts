@@ -6,6 +6,7 @@ declare class SalesforceMessagingModule extends NativeModule<SalesforceMessaging
   PI: number;
   hello(): string;
   setValueAsync(value: string): Promise<void>;
+  sendMessage(): void;
 }
 
 // This call loads the native module object from the JSI.

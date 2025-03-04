@@ -1,84 +1,126 @@
-import SalesforceMessaging, { SalesforceMessagingView, PreChatFieldType } from 'salesforce-messaging';
+import SalesforceMessaging, { SalesforceMessagingView, SalesforceMessagingViewRef } from 'salesforce-messaging';
 import { SafeAreaView, ScrollView, Text, View, StyleSheet, Platform } from 'react-native';
-import { createStaticNavigation, useNavigation } from '@react-navigation/native';
+import { createStaticNavigation, useNavigation, NavigationProp } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from '@react-navigation/elements'
-import { useEffect } from 'react';
-export default function App() {
-  return <Navigation />;
+import { useEffect, useState, useRef, useContext, createContext } from 'react';
+
+interface SalesforceMessagingContextType {
+  ref: React.RefObject<SalesforceMessagingViewRef>;
+  openChat: () => void;
 }
 
-function HomeScreen() {
-  const navigation = useNavigation()
-  
+const SalesforceMessagingContext = createContext<SalesforceMessagingContextType | null>(null);
+
+function SalesforceMessagingProvider({ children }: { children: React.ReactNode }) {
+  const ref = useRef<SalesforceMessagingViewRef>(null);
+
+  const openChat = () => {
+    ref.current?.openChat();
+  };
+
+  const value = {
+    ref,
+    openChat,
+  };
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      
-      <Button onPress={() => navigation.navigate('Messenger')}>
-        Go to Details
-      </Button>
+    <SalesforceMessagingContext.Provider value={value}>
+      <SalesforceMessagingView
+        ref={ref}
+        driverExternalId={"driver_LPPD93VQJH"}
+      />
+      {children}
+    </SalesforceMessagingContext.Provider>
+  );
+}
+
+export function useSalesforceMessaging() {
+  const context = useContext(SalesforceMessagingContext);
+  if (!context) {
+    throw new Error('useSalesforceMessaging must be used within a SalesforceMessagingProvider');
+  }
+  return context;
+}
+
+export default function App() {
+  return (
+    <SalesforceMessagingProvider>
+      <Navigation />
+    </SalesforceMessagingProvider>
+  );
+}
+
+type RootStackParamList = {
+  Home: undefined;
+  Details: undefined;
+  Messenger: undefined;
+};
+
+function HomeScreen() {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  return (
+    <View style={styles.screenContainer}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.header}>Home Screen</Text>
+        <Button onPress={() => navigation.navigate('Messenger')}>
+          Go to Messenger
+        </Button>
+      </View>
     </View>
   );
 }
+
 function DetailsScreen() {
-  
-  const navigation = useNavigation()
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { openChat } = useSalesforceMessaging();
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Details Screen</Text>
-      <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.container}>
-        <Text style={styles.header}>Module API Example</Text>
-        {/* <Group name="Views">
-          <SalesforceMessagingView
-            onLoad={({ nativeEvent: { url } }) => console.log(`Loaded: ${url}`)}
-            style={styles.view}
-          />
-        </Group> */}
-      </ScrollView>
-    </SafeAreaView>
+    <View style={styles.screenContainer}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.header}>Details Screen</Text>
+        <Button onPress={openChat}>
+          Open Chat
+        </Button>
+        <Button onPress={() => navigation.navigate('Home')}>
+          Go to Home
+        </Button>
+      </View>
     </View>
   );
 }
 
 function Messenger() {
-  const navigation = useNavigation()
-
-  useEffect(() => {
-    // On iOS, the conversation is embedded in the window, since it doesn't present its own back button etc.
-    // (This is contrary to its docs, so this is a workaround)
-
-    // But on Android, the conversation is a modal which has its own back button etc.
-    // Thus, we need to navigate back to the home screen when the conversation is opened,
-    // otherwise there will be a blank "messaging" screen it would return to.
-    if (Platform.OS === 'android') {
-      navigation.goBack()
-    }
-  }, [])
+  const { openChat } = useSalesforceMessaging();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
-    <SafeAreaView style={styles.container}>
-      <SalesforceMessagingView
-        driverExternalId={"driver_LPPD93VQJH"}
-        // driverExternalId={"user_NTPRG4XA6A"}
-        // driverExternalId={""}
-        style={styles.view}
-      />
-    </SafeAreaView>
+    <View style={styles.screenContainer}>
+      <View style={styles.contentContainer}>
+        <Text style={styles.header}>Messenger Screen</Text>
+        <Button onPress={openChat}>
+          Open Chat
+        </Button>
+        <Button onPress={() => navigation.navigate('Details')}>
+          Go to Details
+        </Button>
+      </View>
+    </View>
   );
 }
 
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Home',
   screenOptions: {
-    headerStyle: { backgroundColor: 'tomato' },
+    headerStyle: { backgroundColor: '#2196F3' },
+    headerTintColor: '#fff',
   },
   screens: {
     Home: {
       screen: HomeScreen,
       options: {
-        title: 'Overview',
+        title: 'Home',
       },
     },
     Details: {
@@ -100,37 +142,21 @@ const RootStack = createNativeStackNavigator({
 
 const Navigation = createStaticNavigation(RootStack);
 
-function Group(props: { name: string; children: React.ReactNode }) {
-  return (
-    <View style={styles.group}>
-      <Text style={styles.groupHeader}>{props.name}</Text>
-      {props.children}
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
+  screenContainer: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+  },
+  contentContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 16,
+  },
   header: {
-    fontSize: 30,
-    margin: 20,
-  },
-  groupHeader: {
-    fontSize: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 20,
+    color: '#333',
   },
-  group: {
-    margin: 20,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#eee',
-  },
-  view: {
-    flex: 1,
-    height: 50,
-    color: 'red',
-  }
 });

@@ -17,6 +17,10 @@ public class SalesforceMessagingModule: Module {
         Prop("driverExternalId") { (view, driverExternalId: String?) in
             view.driverExternalId = driverExternalId
         }
+        
+        AsyncFunction("openChat") { (view) in
+            view.openChat()
+        }
     }
   }
 }

@@ -1,11 +1,13 @@
 import { requireNativeView } from 'expo';
 import * as React from 'react';
 
-import { SalesforceMessagingViewProps } from './SalesforceMessaging.types';
+import { SalesforceMessagingViewProps, SalesforceMessagingViewRef } from './SalesforceMessaging.types';
 
 const NativeView: React.ComponentType<SalesforceMessagingViewProps> =
   requireNativeView('SalesforceMessaging');
 
-export default function SalesforceMessagingView(props: SalesforceMessagingViewProps) {
-  return <NativeView {...props} />;
-}
+export const SalesforceMessagingView = React.forwardRef<SalesforceMessagingViewRef, SalesforceMessagingViewProps>((props, ref) => {
+  return <NativeView {...props} ref={ref} />;
+});
+
+export default SalesforceMessagingView;

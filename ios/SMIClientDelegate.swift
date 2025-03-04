@@ -47,7 +47,7 @@ class SalesforceClientDelegate {
             
             coreClient.retrieveRemoteConfiguration( completion: { (remoteConfig, error) in
                 self.remoteConfig = remoteConfig
-            })            
+            })
         } else {
             print("Unable to create core client")
             return

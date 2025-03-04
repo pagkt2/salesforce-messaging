@@ -1,3 +1,4 @@
+import SalesforceMessagingView from './SalesforceMessagingView';
 import type { StyleProp, ViewStyle, ViewProps } from 'react-native';
 
 export type OnLoadEventPayload = {
@@ -17,6 +18,11 @@ export type PreChatFieldType = {
   value: string;
 }
 
+export type SalesforceMessagingViewRef = {
+  openChat: () => void;
+}
+
 export type SalesforceMessagingViewProps = {
+  ref: React.ForwardedRef<SalesforceMessagingViewRef>;
   driverExternalId: String // This must remain required for the expo module to work properly.  If no id present, use an empty string.
 } & ViewProps;
